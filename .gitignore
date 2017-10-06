@@ -76,3 +76,6 @@ Content/StarterContent/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Built Windows executable
+WindowsNoEditor/*

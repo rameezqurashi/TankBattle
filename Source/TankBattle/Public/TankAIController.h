@@ -18,7 +18,8 @@ class TANKBATTLE_API ATankAIController : public AAIController
 protected:
 	void BeginPlay() override;
 
-public:
+private:
 	ATank* GetControlledTank() const;
 	
+	ATank* GetPlayerControlledTank() const;
 };

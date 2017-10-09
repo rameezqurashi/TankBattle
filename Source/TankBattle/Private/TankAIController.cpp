@@ -10,23 +10,6 @@ void ATankAIController::BeginPlay()
 	ATank* MyTank = GetControlledTank();
 	ATank* PlayerTank = GetPlayerControlledTank();
 
-	if (MyTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("The AI controlled tank is: %s"), *(MyTank->GetName()));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("No tank is possessed!"));
-	}
-
-	if (PlayerTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("The AI thinks the player controlled tank is: %s"), *(PlayerTank->GetName()));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("No tank is possessed!"));
-	}
 }
 
 ATank* ATankAIController::GetControlledTank() const

@@ -8,14 +8,6 @@ void ATankPlayerController::BeginPlay()
 
 	ATank* MyTank = GetControlledTank();
 
-	if (MyTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("The player controlled tank is: %s"), *(MyTank->GetName()));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("No tank is possessed!"));
-	}
 }
 
 ATank* ATankPlayerController::GetControlledTank() const

@@ -20,7 +20,7 @@ protected:
 
 	void Tick(float DeltaTime) override;
 
-public:
+private:
 	ATank* GetControlledTank() const;
 	
 	ATank* GetPlayerControlledTank() const;

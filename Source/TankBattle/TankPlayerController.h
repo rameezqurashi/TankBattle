@@ -20,9 +20,24 @@ protected:
 
 	void Tick(float DeltaTime);
 
-public:
+private:
 	ATank* GetControlledTank() const;
 	
-	void AimTowardsCrosshair();
+	void AimTowardsCrosshair() const;
 
+	bool GetSightRayHitLocation(FVector &HitLocation) const;
+
+	void GetCrossHairDirectionVector(FVector & CrossHairDirection) const;
+
+	void AimAt(FVector &HitLocation) const;
+
+	UPROPERTY(EditAnywhere)
+	float CrossHairXLocation = 0.5;
+	
+	UPROPERTY(EditAnywhere)
+	float CrossHairYLocation = 0.33333;
+
+	// 10km reach of crosshair sight
+	UPROPERTY(EditAnywhere)
+	float Reach = 1000000.0;
 };

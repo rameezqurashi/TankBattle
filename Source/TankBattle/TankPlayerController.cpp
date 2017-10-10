@@ -7,7 +7,7 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ATank* MyTank = GetControlledTank();
+	MyTank = GetControlledTank();
 
 }
 
@@ -24,7 +24,6 @@ ATank* ATankPlayerController::GetControlledTank() const
 
 void ATankPlayerController::AimTowardsCrosshair() const
 {
-	ATank* MyTank = GetControlledTank();
 	if (!MyTank)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("AimTowardsCrosshair cannot find player tank"));
@@ -36,7 +35,7 @@ void ATankPlayerController::AimTowardsCrosshair() const
 
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString());
+		MyTank->AimAt(HitLocation);
 	}
 }
 
@@ -75,14 +74,13 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &HitLocation) const
 		FCollisionQueryParams(FName(TEXT("")), false, GetOwner())
 	);
 
-	DrawDebugLine(GetWorld(), CameraWorldLocation, SightEndPoint, FColor::Red, false, -1.0, 0, 10);
-
 	HitLocation = HitResult.Location;
 	return IsHitFound;
 }
 
 void ATankPlayerController::AimAt(FVector & HitLocation) const
 {
+	UE_LOG(LogTemp, Warning, TEXT("Tank %s aiming at: %s"), *GetName(), *HitLocation.ToString());
 }
 
 

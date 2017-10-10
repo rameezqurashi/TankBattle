@@ -7,15 +7,24 @@ void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ATank* MyTank = GetControlledTank();
-	ATank* PlayerTank = GetPlayerControlledTank();
+	MyTank = GetControlledTank();
+	PlayerTank = GetPlayerControlledTank();
 
 }
 
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	AimTowardsPlayerTank();
+
+	if (!PlayerTank)
+	{
+		UE_LOG(LogTemp, Error, TEXT("No player tank to aim at!"));
+	}
+	else
+	{
+		FVector PlayerTankLocation = PlayerTank->GetActorLocation();
+		MyTank->AimAt(PlayerTankLocation);
+	}
 }
 
 ATank* ATankAIController::GetControlledTank() const
@@ -28,12 +37,7 @@ ATank* ATankAIController::GetPlayerControlledTank() const
 	return Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 }
 
-void ATankAIController::AimTowardsPlayerTank()
+void ATankAIController::AimAt(FVector &HitLocation)
 {
-	ATank* PlayerTank = GetPlayerControlledTank();
-	if (!PlayerTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AimTowardsPlayerTank cannot find a Player Controlled Tank"));
-		return;
-	}
+	UE_LOG(LogTemp, Warning, TEXT("Tank %s aiming at: %s"), *GetName(), *HitLocation.ToString());
 }

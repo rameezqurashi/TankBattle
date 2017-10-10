@@ -31,6 +31,8 @@ private:
 
 	void AimAt(FVector &HitLocation) const;
 
+	ATank* MyTank = NULL;
+
 	UPROPERTY(EditAnywhere)
 	float CrossHairXLocation = 0.5;
 	

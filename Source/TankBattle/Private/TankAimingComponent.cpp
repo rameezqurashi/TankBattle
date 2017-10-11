@@ -24,7 +24,7 @@ void UTankAimingComponent::AimAt(FVector & HitLocation, const float Launchspeed)
 													false, 
 													0.0, 
 													0.0, 
-													ESuggestProjVelocityTraceOption::TraceFullPath,
+													ESuggestProjVelocityTraceOption::DoNotTrace,
 													FCollisionResponseParams::DefaultResponseParam, 
 													IgnoreList, 
 													false))

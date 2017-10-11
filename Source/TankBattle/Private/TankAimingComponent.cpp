@@ -30,7 +30,6 @@ void UTankAimingComponent::AimAt(FVector & HitLocation, const float Launchspeed)
 													false))
 	{
 		MoveBarrel(OutLaunchVelocity.GetSafeNormal());
-		UE_LOG(LogTemp, Warning, TEXT("Tank %s should fire at: %s"), *(GetOwner()->GetName()), *OutLaunchVelocity.ToString());
 	}
 }
 
@@ -45,4 +44,6 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	FRotator BarrelRotation = Barrel->GetComponentRotation();
 	FRotator AimRotation = AimDirection.Rotation();
 	FRotator DeltaRotation = AimRotation - BarrelRotation;
+
+	Barrel->Elevate(DeltaRotation.Pitch);
 }

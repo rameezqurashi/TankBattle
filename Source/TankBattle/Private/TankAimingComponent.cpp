@@ -64,5 +64,8 @@ void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent * BarrelToSet
 
 void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 {
-	// Rotate barrel to world coordinates of crosshair
+	ensure(Barrel);
+	FRotator BarrelRotation = Barrel->GetComponentRotation();
+	FRotator AimRotation = AimDirection.Rotation();
+	FRotator DeltaRotation = AimRotation - BarrelRotation;
 }

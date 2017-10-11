@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAimingComponent.h"
-
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -32,7 +32,37 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	// ...
 }
 
-void UTankAimingComponent::AimAt(FVector & HitLocation) const
+void UTankAimingComponent::AimAt(FVector & HitLocation, const float Launchspeed)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Tank %s aiming at: %s"), *(GetOwner()->GetName()), *HitLocation.ToString());
+	TArray<AActor*> IgnoreList = { GetOwner() };
+	FVector OutLaunchVelocity;
+	ensure(Barrel);
+
+	// Returns 0 if invalid path
+	if (UGameplayStatics::SuggestProjectileVelocity(this, 
+													OutLaunchVelocity, 
+													Barrel->GetSocketLocation(FName("Projectile")), 
+													HitLocation,
+													Launchspeed, 
+													false, 
+													0.0, 
+													0.0, 
+													ESuggestProjVelocityTraceOption::TraceFullPath,
+													FCollisionResponseParams::DefaultResponseParam, 
+													IgnoreList, 
+													false))
+	{
+		MoveBarrel(OutLaunchVelocity.GetSafeNormal());
+		UE_LOG(LogTemp, Warning, TEXT("Tank %s should fire at: %s"), *(GetOwner()->GetName()), *OutLaunchVelocity.ToString());
+	}
+}
+
+void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent * BarrelToSet)
+{
+	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::MoveBarrel(FVector AimDirection)
+{
+	// Rotate barrel to world coordinates of crosshair
 }

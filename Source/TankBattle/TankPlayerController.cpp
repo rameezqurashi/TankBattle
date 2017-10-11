@@ -78,9 +78,4 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &HitLocation) const
 	return IsHitFound;
 }
 
-void ATankPlayerController::AimAt(FVector & HitLocation) const
-{
-	UE_LOG(LogTemp, Warning, TEXT("Tank %s aiming at: %s"), *GetName(), *HitLocation.ToString());
-}
-
 

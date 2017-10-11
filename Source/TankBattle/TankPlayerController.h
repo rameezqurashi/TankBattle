@@ -27,12 +27,6 @@ private:
 
 	bool GetSightRayHitLocation(FVector &HitLocation) const;
 
-	void GetCrossHairDirectionVector(FVector & CrossHairDirection) const;
-
-	void AimAt(FVector &HitLocation) const;
-
-	ATank* MyTank = NULL;
-
 	UPROPERTY(EditAnywhere)
 	float CrossHairXLocation = 0.5;
 	
@@ -42,4 +36,6 @@ private:
 	// 10km reach of crosshair sight
 	UPROPERTY(EditAnywhere)
 	float Reach = 1000000.0;
+
+	ATank* MyTank;
 };

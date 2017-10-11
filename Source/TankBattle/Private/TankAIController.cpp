@@ -36,8 +36,3 @@ ATank* ATankAIController::GetPlayerControlledTank() const
 {
 	return Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 }
-
-void ATankAIController::AimAt(FVector &HitLocation)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Tank %s aiming at: %s"), *GetName(), *HitLocation.ToString());
-}

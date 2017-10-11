@@ -25,8 +25,6 @@ private:
 	
 	ATank* GetPlayerControlledTank() const;
 
-	void AimAt(FVector &HitLocation);
-
 	ATank* MyTank = NULL;
 	ATank* PlayerTank = NULL;
 

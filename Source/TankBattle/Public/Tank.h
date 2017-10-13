@@ -38,6 +38,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetTurretReference(UTankTurret* Turret);
 
+	UFUNCTION(BlueprintCallable)
+	void Fire();
+
 private:
 	UPROPERTY(EditAnywhere, Category = "Firing")
 	float LaunchSpeed;

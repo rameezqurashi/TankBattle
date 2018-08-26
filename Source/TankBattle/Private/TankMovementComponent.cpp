@@ -16,9 +16,18 @@ void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* 
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Throttle: %f"), Throw);
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
 
+void UTankMovementComponent::IntendMoveLeft(float Throw)
+{
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
+}
 
+void UTankMovementComponent::IntendMoveRight(float Throw)
+{
+	LeftTrack->SetThrottle(-Throw);
+	RightTrack->SetThrottle(Throw);
+}

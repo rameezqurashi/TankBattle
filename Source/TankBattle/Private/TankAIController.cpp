@@ -24,6 +24,11 @@ void ATankAIController::Tick(float DeltaTime)
 	}
 	else
 	{
+		if (MoveToActor(PlayerTank, AcceptanceRadius, true, true, false, 0, true) == EPathFollowingRequestResult::Failed)
+		{
+			UE_LOG(LogTemp, Error, TEXT("PathFollowing request failed!"))
+		}
+
 		FVector PlayerTankLocation = PlayerTank->GetActorLocation();
 		MyTank->AimAt(PlayerTankLocation);
 

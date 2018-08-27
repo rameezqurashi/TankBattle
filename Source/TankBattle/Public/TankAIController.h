@@ -21,6 +21,7 @@ protected:
 	void Tick(float DeltaTime) override;
 
 private:
+	float AcceptanceRadius = 3000.0f;
 
 	ATank* MyTank = NULL;
 	ATank* PlayerTank = NULL;

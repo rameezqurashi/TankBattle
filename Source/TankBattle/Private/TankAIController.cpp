@@ -3,6 +3,7 @@
 #include "TankAIController.h"
 #include "Runtime/Engine/Classes/GameFramework/Actor.h"
 #include "Tank.h"
+// Implicit dependancy on MovementComponent because of pathfinding logic
 
 void ATankAIController::BeginPlay()
 {

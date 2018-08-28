@@ -3,13 +3,19 @@
 #include "TankPlayerController.h"
 #include "Tank.h"
 #include "Runtime/Engine/Public/DrawDebugHelpers.h"
+#include "TankAimingComponent.h"
 
 void ATankPlayerController::BeginPlay() 
 {
 	Super::BeginPlay();
 
 	MyTank = GetControlledTank();
-
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	
+	if (AimingComponent)
+		FoundAimingComponent(AimingComponent);
+	else
+		UE_LOG(LogTemp, Warning, TEXT("No Aiming Component!"));
 }
 
 void ATankPlayerController::Tick(float DeltaTime)

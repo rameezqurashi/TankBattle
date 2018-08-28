@@ -9,12 +9,11 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	MyTank = GetControlledTank();
 	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
 	
-	if (AimingComponent)
+	if (ensure(AimingComponent))
 		FoundAimingComponent(AimingComponent);
-	else
+	else 
 		UE_LOG(LogTemp, Warning, TEXT("No Aiming Component!"));
 }
 
@@ -31,9 +30,8 @@ ATank* ATankPlayerController::GetControlledTank() const
 
 void ATankPlayerController::AimTowardsCrosshair() const
 {
-	if (!MyTank)
+	if (!ensure(GetControlledTank()))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AimTowardsCrosshair cannot find player tank"));
 		return;
 	}
 
@@ -42,7 +40,7 @@ void ATankPlayerController::AimTowardsCrosshair() const
 
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		MyTank->AimAt(HitLocation);
+		GetControlledTank()->AimAt(HitLocation);
 	}
 }
 

@@ -18,9 +18,9 @@ void ATankAIController::Tick(float DeltaTime)
 
 	ATank* PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 
-	if (!PlayerTank)
+	if (!ensure(PlayerTank))
 	{
-		UE_LOG(LogTemp, Error, TEXT("No player tank to aim at!"));
+		return;
 	}
 	else
 	{

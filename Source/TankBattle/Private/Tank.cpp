@@ -17,15 +17,21 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
+
 }
 
 void ATank::AimAt(FVector & HitLocation) const
 {
 	if (ensure(TankAimingComponent))
+	{
 		TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
+	}
 	else
+	{
 		return;
+	}
 }
 
 void ATank::Fire()

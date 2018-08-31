@@ -2,12 +2,17 @@
 
 #include "TankAIController.h"
 #include "Runtime/Engine/Classes/GameFramework/Actor.h"
-#include "Tank.h"
+#include "TankAimingComponent.h"
 // Implicit dependancy on MovementComponent because of pathfinding logic
 
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+
+	if (!ensure(AimingComponent))
+		UE_LOG(LogTemp, Warning, TEXT("AI Controller Has No Aiming Component!"));
 
 }
 
@@ -15,24 +20,20 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	ATank* MyTank = Cast<ATank>(GetPawn());
+	APawn* PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 
-	ATank* PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-
-	if (!ensure(PlayerTank))
+	if (!ensure(PlayerTank && AimingComponent))
 	{
 		return;
 	}
-	else
+
+	if (MoveToActor(PlayerTank, AcceptanceRadius, true, true, false, 0, true) == EPathFollowingRequestResult::Failed)
 	{
-		if (MoveToActor(PlayerTank, AcceptanceRadius, true, true, false, 0, true) == EPathFollowingRequestResult::Failed)
-		{
-			UE_LOG(LogTemp, Error, TEXT("PathFollowing request failed!"))
-		}
-
-		FVector PlayerTankLocation = PlayerTank->GetActorLocation();
-		MyTank->AimAt(PlayerTankLocation);
-
-		MyTank->Fire();
+		UE_LOG(LogTemp, Error, TEXT("PathFollowing request failed!"))
 	}
+
+	FVector PlayerTankLocation = PlayerTank->GetActorLocation();
+	AimingComponent->AimAt(PlayerTankLocation);
+
+
 }

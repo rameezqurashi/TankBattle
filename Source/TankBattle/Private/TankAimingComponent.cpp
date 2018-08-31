@@ -10,7 +10,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 }
 
-void UTankAimingComponent::AimAt(FVector & HitLocation, const float Launchspeed)
+void UTankAimingComponent::AimAt(FVector & HitLocation)
 {
 	TArray<AActor*> IgnoreList = { GetOwner() };
 	FVector OutLaunchVelocity;
@@ -21,7 +21,7 @@ void UTankAimingComponent::AimAt(FVector & HitLocation, const float Launchspeed)
 													OutLaunchVelocity, 
 													Barrel->GetSocketLocation(FName("Projectile")), 
 													HitLocation,
-													Launchspeed, 
+													LaunchSpeed, 
 													false, 
 													0.0, 
 													0.0, 

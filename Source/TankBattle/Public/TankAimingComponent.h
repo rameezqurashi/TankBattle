@@ -28,7 +28,7 @@ public:
 
 public:	
 
-	void AimAt(FVector & HitLocation, const float Launchspeed);
+	void AimAt(FVector & HitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialize(UTankBarrel *Barrel, UTankTurret *Turret);
@@ -38,6 +38,9 @@ protected:
 	EFiringStatus FiringStatus = EFiringStatus::Aiming;
 
 private:
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed;
+
 	UTankBarrel *Barrel = NULL;
 
 	UTankTurret *Turret = NULL;

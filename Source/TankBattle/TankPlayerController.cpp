@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
-#include "Tank.h"
 #include "Runtime/Engine/Public/DrawDebugHelpers.h"
 #include "TankAimingComponent.h"
 
@@ -9,12 +8,12 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	
 	if (ensure(AimingComponent))
 		FoundAimingComponent(AimingComponent);
 	else 
-		UE_LOG(LogTemp, Warning, TEXT("No Aiming Component!"));
+		UE_LOG(LogTemp, Warning, TEXT("Player Controller Has No Aiming Component!"));
 }
 
 void ATankPlayerController::Tick(float DeltaTime)
@@ -23,15 +22,11 @@ void ATankPlayerController::Tick(float DeltaTime)
 	AimTowardsCrosshair();
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
 void ATankPlayerController::AimTowardsCrosshair() const
 {
-	if (!ensure(GetControlledTank()))
+	if (!ensure(AimingComponent))
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Player has no aiming component!"));
 		return;
 	}
 
@@ -40,7 +35,7 @@ void ATankPlayerController::AimTowardsCrosshair() const
 
 	if (bHaveHitLocation)
 	{
-		GetControlledTank()->AimAt(HitLocation);
+		AimingComponent->AimAt(HitLocation);
 	}
 }
 
